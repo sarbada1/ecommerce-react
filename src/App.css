@@ -23,7 +23,10 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+.nav-wrap a{
+  padding-left: 15px;
+  text-decoration: none;
+}
 .App-link {
   color: #61dafb;
 }
