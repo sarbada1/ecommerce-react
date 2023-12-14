@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Header from './Header';
 import Login from './Login';
@@ -12,19 +12,19 @@ function App() {
   return (
 
     <div className="App">
-      <BrowserRouter>
+      <Router>
         <Header />
 
         <h1>Ecommerce Project</h1>
         <Routes>
-          <Route path='/login'element={<Login/>} />
-          <Route path='/register'element={<Register />} />
-          <Route path='/add'element={<AddProduct/>} />
-          <Route path='/update'element={<UpdateProduct/>} />
+          <Route path='/login' element={<Login/>} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/add' element={<AddProduct/>} />
+          <Route path='/update' element={<UpdateProduct/>} />
         
         </Routes>
 
-      </BrowserRouter>
+      </Router>
     </div>
   );
 }
