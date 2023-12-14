@@ -1,51 +1,55 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Header from './Header';
 
 function Register() {
+
+  useEffect(() => {
+   if(localStorage.getItem('user-info'))
+   {
+    navigate('/add');
+   }
+  
+   
+  }, [])
+  
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  function signUp() {
-    return new Promise((resolve, reject) => {
+  async function signUp(e) {
+
+      e.preventDefault();
       setLoading(true);
       const input = { name, email, password };
-  
-      axios.post('http://localhost:8000/api/register', input, {
+
+      // Using Axios for the POST request
+      const response = await axios.post('http://localhost:8000/api/register', input, {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         }
-      })
-      .then(response => {
-        const result = response.data;
-        localStorage.setItem('user-info', JSON.stringify(result));
-  
-        console.log('Navigating to /add');
-        // navigate('/add');
-  
-        // Resolve the promise with the result
-        resolve(result);
-      })
-      .catch(error => {
-        console.error('Error during registration:', error);
-  
-        // Reject the promise with the error
-        reject(error);
-      })
-      .finally(() => {
-        setLoading(false);
       });
-    });
+
+      const result = response.data;
+      localStorage.setItem('user-info', JSON.stringify(result));
+
+      
+      navigate('/add');
+  
   }
+
   return (
+    <>
+    <Header/>
     <div>
       <Container>
-        <Form onSubmit={signUp}>
+        <Form onSubmit={(e)=>signUp(e)}>
           <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Label>Name</Form.Label>
             <Form.Control type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter name" />
@@ -67,6 +71,7 @@ function Register() {
         </Form>
       </Container>
     </div>
+    </>
   );
 }
 
