@@ -7,6 +7,8 @@ import Register from './Register';
 import AddProduct from './AddProduct';
 import UpdateProduct from './UpdateProduct';
 import Protected from './Protected';
+import Header from './Header';
+import ProductList from './ProductList';
 
 
 function App() {
@@ -16,8 +18,8 @@ function App() {
       <Router>
         
 
-     
         <Routes>
+       
           <Route path='/login' element={<Login/>} />
           <Route path='/register' element={<Register />} />
           <Route
@@ -25,12 +27,16 @@ function App() {
             element={<Protected><AddProduct /></Protected>}
           />
           <Route
-            path="/update"
+            path="/update/:id"
             element={<Protected><UpdateProduct /></Protected>}
+          />
+          <Route
+            path="/"
+            element={<Protected><ProductList /></Protected>}
           />
         
         </Routes>
-
+      
       </Router>
     </div>
   );
