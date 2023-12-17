@@ -9,6 +9,7 @@ import UpdateProduct from './UpdateProduct';
 import Protected from './Protected';
 import Header from './Header';
 import ProductList from './ProductList';
+import Search from './Search';
 
 
 function App() {
@@ -33,6 +34,10 @@ function App() {
           <Route
             path="/"
             element={<Protected><ProductList /></Protected>}
+          />
+          <Route
+            path="/search"
+            element={<Protected><Search /></Protected>}
           />
         
         </Routes>

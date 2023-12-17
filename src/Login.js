@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Header from './Header'
-import { Container, Form, Button, Card } from 'react-bootstrap';
+import { Container, Form, Button, Card,Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -8,7 +8,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem('user-info')) {
@@ -36,7 +36,7 @@ e.preventDefault()
         navigate('/');
       }
       else{
-        alert('Incorrect password or email')
+        setShowAlert(true);
         navigate('/login');
       }
       
@@ -50,15 +50,23 @@ e.preventDefault()
   return (
     <>
       <Header />
-      <Container className="d-flex justify-content-center align-items-center vh-100">
+  
+      <Container className="d-flex justify-content-center align-items-center vh-80 mt-5">
         <Card style={{ width: '400px' }}>
+        {showAlert && (
+              <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
+                Incorrect Password or Email
+              </Alert>
+            )}
           <Card.Body>
             <Card.Title className="text-center mb-4">Login</Card.Title>
+
+         
             <Form >
 
 
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
+             
                 <Form.Control
                   type="email"
                   name="email"
@@ -69,7 +77,7 @@ e.preventDefault()
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
+               
                 <Form.Control
                   type="password"
                   name="password"
